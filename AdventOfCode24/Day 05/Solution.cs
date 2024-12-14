@@ -5,23 +5,23 @@ namespace AdventOfCode24.Day_05;
 
 public class Solution : BaseSolution
 {
-	protected override void SolveOne(string fileName, LogHandle logger)
+	protected override void SolveOne(string fileName)
 	{
 		var (rules, updates) = GetInput(fileName);
 		updates
 			.Where(u => IsSafe(rules, u))
 			.Sum(u => u[u.Length / 2])
-			.Log(logger, sum => $"The sum of the middle page of each correctly numbered update is: {sum}");
+			.Log(Logger, sum => $"The sum of the middle page of each correctly numbered update is: {sum}");
 	}
 
-	protected override void SolveTwo(string fileName, LogHandle logger)
+	protected override void SolveTwo(string fileName)
 	{
 		var (rules, updates) = GetInput(fileName);
 		updates
 			.Where(u => !IsSafe(rules, u))
 			.Select(u => FixOrder(rules, u))
 			.Sum(u => u[u.Length / 2])
-			.Log(logger, sum => $"The sum of the middle page of each correctly numbered update is: {sum}");
+			.Log(Logger, sum => $"The sum of the middle page of each correctly numbered update is: {sum}");
 	}
 
 	private (Dictionary<int, int[]> Rules, int[][] Updates) GetInput(string fileName)
@@ -70,6 +70,7 @@ public class Solution : BaseSolution
 				break;
 			}
 		}
+
 		ordered.Reverse();
 		return ordered.ToArray();
 	}

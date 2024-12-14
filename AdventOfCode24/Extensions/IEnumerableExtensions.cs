@@ -12,4 +12,7 @@ public static class IEnumerableExtensions
 		foreach (var element in enumerable)
 			predicate(element);
 	}
+
+	public static IEnumerable<T> WhereNot<T>(this IEnumerable<T> enumerable, Func<T, bool> predicate)
+		=> enumerable.Where(x => !predicate(x));
 }

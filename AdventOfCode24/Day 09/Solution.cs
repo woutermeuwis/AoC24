@@ -5,20 +5,20 @@ namespace AdventOfCode24.Day_09;
 
 public class Solution : BaseSolution
 {
-	protected override void SolveOne(string fileName, LogHandle logger)
+	protected override void SolveOne(string fileName)
 	{
 		ByteDefragment(GetInput(fileName))
 			.Select((v, i) => v * i)
 			.Sum()
-			.Log(logger, checksum => $"Defragmented memory checksum: {checksum}");
+			.Log(Logger, checksum => $"Defragmented memory checksum: {checksum}");
 	}
 
-	protected override void SolveTwo(string fileName, LogHandle logger)
+	protected override void SolveTwo(string fileName)
 	{
 		FileDefragment(GetInput(fileName).ToList())
 			.Select((v, i) => v * i)
 			.Sum()
-			.Log(logger, checksum => $"Defragmented memory checksum: {checksum}");
+			.Log(Logger, checksum => $"Defragmented memory checksum: {checksum}");
 	}
 
 	private FileDescriptor[] GetInput(string fileName)
@@ -84,20 +84,20 @@ public class Solution : BaseSolution
 		// makes iterating easier!
 		diskMap.Add(new(-1, 1, true));
 		var id = diskMap.Max(fd => fd.Id);
-		
+
 		while (id > 0)
 		{
 			// get file and index
 			var fileToMove = diskMap.Single(fd => fd.Id == id);
 			var indexToMove = diskMap.IndexOf(fileToMove);
-			
+
 			// find a space where it might fit
 			for (var i = 0; i < indexToMove; i++)
 			{
 				// if not free, or too small, skip...
 				if (!diskMap[i].IsFreeSpace || diskMap[i].Length < fileToMove.Length)
 					continue;
-				
+
 				if (diskMap[indexToMove - 1].IsFreeSpace && diskMap[indexToMove + 1].IsFreeSpace)
 				{
 					var newFreeSpace = diskMap[indexToMove - 1].Length + fileToMove.Length + diskMap[indexToMove + 1].Length;
@@ -113,7 +113,7 @@ public class Solution : BaseSolution
 				else if (diskMap[indexToMove + 1].IsFreeSpace)
 				{
 					var newFreeSpace = diskMap[indexToMove + 1].Length + fileToMove.Length;
-					diskMap.RemoveRange(indexToMove,2);
+					diskMap.RemoveRange(indexToMove, 2);
 					diskMap.Insert(indexToMove, new(-1, newFreeSpace, true));
 				}
 				else
@@ -121,8 +121,8 @@ public class Solution : BaseSolution
 					diskMap.RemoveAt(indexToMove);
 					diskMap.Insert(indexToMove, new(-1, fileToMove.Length, true));
 				}
-				
-			
+
+
 				var freeSpace = diskMap[i];
 				diskMap.Remove(freeSpace);
 				if (freeSpace.Length > fileToMove.Length)
@@ -157,5 +157,6 @@ public class Solution : BaseSolution
 			}
 		}
 	}
+
+	private record FileDescriptor(int Id, int Length, bool IsFreeSpace);
 }
-public record FileDescriptor(int Id, int Length, bool IsFreeSpace);

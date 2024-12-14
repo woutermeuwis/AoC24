@@ -70,19 +70,26 @@ public record Point(int X, int Y)
 			_ => throw new ArgumentOutOfRangeException(nameof(direction), direction, null)
 		};
 
-	public Point[] GetOrthogonalNeighbours()
-		=> [GetLeft(), GetUp(), GetRight(), GetDown()];
+	public Point[] GetOrthogonalNeighbours(Bounds? bounds = null)
+		=> new[] { GetLeft(), GetUp(), GetRight(), GetDown() }
+			.Where(p => bounds == null || p.IsInBounds(bounds))
+			.ToArray();
 
-	public Point[] GetDiagonalNeighbours()
-		=> [GetUpperLeft(), GetUpperRight(), GetLowerRight(), GetLowerLeft()];
+	public Point[] GetDiagonalNeighbours(Bounds? bounds = null)
+		=> new[] { GetUpperLeft(), GetUpperRight(), GetLowerRight(), GetLowerLeft() }
+			.Where(p => bounds == null || p.IsInBounds(bounds))
+			.ToArray();
 
-	public Point[] GetAllNeighbours()
-		=> [GetLeft(), GetUpperLeft(), GetUp(), GetUpperRight(), GetRight(), GetLowerRight(), GetDown(), GetLowerLeft()];
-	
+
+	public Point[] GetAllNeighbours(Bounds? bounds = null)
+		=> new[] { GetLeft(), GetUpperLeft(), GetUp(), GetUpperRight(), GetRight(), GetLowerRight(), GetDown(), GetLowerLeft() }
+			.Where(p => bounds == null || p.IsInBounds(bounds))
+			.ToArray();
+
 
 	public bool IsInBounds(int x1, int y1, int x2, int y2)
 		=> x1 <= X && X <= x2 && y1 <= Y && Y <= y2;
-	
+
 	public bool IsInBounds(Bounds bounds)
 		=> IsInBounds(bounds.Left, bounds.Top, bounds.Right, bounds.Bottom);
 

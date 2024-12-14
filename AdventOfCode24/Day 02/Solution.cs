@@ -5,15 +5,15 @@ namespace AdventOfCode24.Day_02;
 
 public class Solution : BaseSolution
 {
-	protected override void SolveOne(string fileName, LogHandle logger)
+	protected override void SolveOne(string fileName)
 		=> GetReports(fileName)
 			.Count(ValidateReportSafety)
-			.Log(logger, count => $"Number of safe reports: {count}");
+			.Log(Logger, count => $"Number of safe reports: {count}");
 
-	protected override void SolveTwo(string fileName, LogHandle logger)
+	protected override void SolveTwo(string fileName)
 		=> GetReports(fileName)
 			.Count(ValidateReportDampenedSafety)
-			.Log(logger, count => $"Number of dampened safe reports: {count}");
+			.Log(Logger, count => $"Number of dampened safe reports: {count}");
 
 	private int[][] GetReports(string fileName)
 	{
@@ -80,6 +80,6 @@ public class Solution : BaseSolution
 			_ => false
 		};
 	}
-
-	public record NodeData(int Index, int? DiffTo, int? DiffFrom);
 }
+
+file record NodeData(int Index, int? DiffTo, int? DiffFrom);

@@ -4,9 +4,9 @@ using AdventOfCode24.Helpers;
 
 var config = new
 {
-	Day = 10,
-	Days = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 },
-	RunMultiple = true,
+	Day = 12,
+	Days = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 },
+	RunMultiple = false,
 	RunExamples = true,
 	RunInput = true,
 	RunPartOne = true,

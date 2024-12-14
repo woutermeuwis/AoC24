@@ -5,20 +5,20 @@ namespace AdventOfCode24.Day_07;
 
 public class Solution : BaseSolution
 {
-	protected override void SolveOne(string fileName, LogHandle logger)
+	protected override void SolveOne(string fileName)
 	{
 		GetInput(fileName)
 			.Where(r => CanBeSolved(r, false))
 			.Sum(report => report.Calibration)
-			.Log(logger, sum => $"The total calibration result is {sum}");
+			.Log(Logger, sum => $"The total calibration result is {sum}");
 	}
 
-	protected override void SolveTwo(string fileName, LogHandle logger)
+	protected override void SolveTwo(string fileName)
 	{
 		GetInput(fileName)
 			.Where(r => CanBeSolved(r, true))
 			.Sum(report => report.Calibration)
-			.Log(logger, sum => $"The total calibration result is {sum}");
+			.Log(Logger, sum => $"The total calibration result is {sum}");
 	}
 
 	private (long Calibration, long[] Operators)[] GetInput(string fileName) =>

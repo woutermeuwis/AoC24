@@ -6,39 +6,37 @@ namespace AdventOfCode24.Day_04;
 
 public class Solution : BaseSolution
 {
-	protected override void SolveOne(string fileName, LogHandle logger)
+	protected override void SolveOne(string fileName)
 	{
 		var puzzle = GetInput(fileName);
 		var positions = GetCharPositions(puzzle);
 
-		var counter =
-			positions['X']
-				.Sum(x => positions['M']
-					.Where(x.IsNeighbour)
-					.Count(m => puzzle.Check(2 * m - x, 'A') && puzzle.Check(3 * m - 2 * x, 'S')));
-
-		logger.Log($"Total XMAS occurences: {counter}");
+		positions['X']
+			.Sum(x => positions['M']
+				.Where(x.IsNeighbour)
+				.Count(m => puzzle.Check(2 * m - x, 'A') && puzzle.Check(3 * m - 2 * x, 'S')))
+			.Log(Logger, counter => $"Total XMAS occurences: {counter}");
 	}
 
-	protected override void SolveTwo(string fileName, LogHandle logger)
+	protected override void SolveTwo(string fileName)
 	{
 		var puzzle = GetInput(fileName);
 		var positions = GetCharPositions(puzzle);
 		var counter = 0;
-		
+
 		foreach (var a in positions['A'])
 		{
 			var diagonalOne = (puzzle.Check(a.GetUpperLeft(), 'M') && puzzle.Check(a.GetLowerRight(), 'S'))
 			                  || (puzzle.Check(a.GetUpperLeft(), 'S') && puzzle.Check(a.GetLowerRight(), 'M'));
-			
+
 			var diagonalTwo = (puzzle.Check(a.GetLowerLeft(), 'M') && puzzle.Check(a.GetUpperRight(), 'S'))
 			                  || (puzzle.Check(a.GetLowerLeft(), 'S') && puzzle.Check(a.GetUpperRight(), 'M'));
 
 			if (diagonalOne && diagonalTwo)
 				counter++;
 		}
-		
-		logger.Log($"Total actual XMAS occurences: {counter}");
+
+		Logger($"Total actual XMAS occurences: {counter}");
 	}
 
 	private char[][] GetInput(string fileName) =>

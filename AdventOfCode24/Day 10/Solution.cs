@@ -6,16 +6,16 @@ namespace AdventOfCode24.Day_10;
 
 public class Solution : BaseSolution
 {
-	protected override void SolveOne(string fileName, LogHandle logger)
+	protected override void SolveOne(string fileName)
 	{
 		Solve<HashSet<Point>>(fileName)
-			.Log(logger, score => $"The sum of scores of all trail heads is: {score}");
+			.Log(Logger, score => $"The sum of scores of all trail heads is: {score}");
 	}
 
-	protected override void SolveTwo(string fileName, LogHandle logger)
+	protected override void SolveTwo(string fileName)
 	{
 		Solve<List<Point>>(fileName)
-			.Log(logger, score => $"The advanced sum of scores of all trail heads is: {score}");
+			.Log(Logger, score => $"The advanced sum of scores of all trail heads is: {score}");
 	}
 
 	private int Solve<T>(string fileName) where T : ICollection<Point>, new()

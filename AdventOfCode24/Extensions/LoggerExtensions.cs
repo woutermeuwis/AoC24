@@ -4,21 +4,21 @@ namespace AdventOfCode24.Extensions;
 
 public static class LoggerExtensions
 {
-	public static void Log(this int i, LogHandle handle)
-		=> handle.Log(i.ToString());
+	public static void Log(this int i,  Action<string> logger)
+		=> logger(i.ToString());
 
-	public static void Log(this int i, LogHandle handle, Func<int, string> formatter)
-		=> handle.Log(formatter(i));
+	public static void Log(this int i,  Action<string> logger, Func<int, string> formatter)
+		=> logger(formatter(i));
 
-	public static void Log(this long l, LogHandle handle)
-		=> handle.Log(l.ToString());
+	public static void Log(this long l,  Action<string> logger)
+		=> logger(l.ToString());
 
-	public static void Log(this long l, LogHandle handle, Func<long, string> formatter)
-		=> handle.Log(formatter(l));
+	public static void Log(this long l, Action<string> logger, Func<long, string> formatter)
+		=> logger(formatter(l));
 
-	public static void Log(this string str, LogHandle handle)
-		=> handle.Log(str);
+	public static void Log(this string str,  Action<string> logger)
+		=> logger(str);
 
-	public static void Log(this string str, LogHandle handle, Func<string, string> formatter)
-		=> handle.Log(formatter(str));
+	public static void Log(this string str,  Action<string> logger, Func<string, string> formatter)
+		=> logger(formatter(str));
 }

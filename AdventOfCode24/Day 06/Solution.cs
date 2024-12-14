@@ -7,13 +7,13 @@ namespace AdventOfCode24.Day_06;
 
 public class Solution : BaseSolution
 {
-	protected override void SolveOne(string fileName, LogHandle logger)
+	protected override void SolveOne(string fileName)
 	{
 		var map = GetInput(fileName);
 		var guardPos = GetGuardPosition(map);
 		var direction = Direction.Up;
 
-		logger.Log("Parsed input data!");
+		Logger("Parsed input data!");
 
 		while (true)
 		{
@@ -31,22 +31,22 @@ public class Solution : BaseSolution
 
 
 		map.Sum(l => l.Count(c => c == 'X'))
-			.Log(logger, sum => $"Distinct spaces patrolled by guard: {sum}");
+			.Log(Logger, sum => $"Distinct spaces patrolled by guard: {sum}");
 	}
 
-	protected override void SolveTwo(string fileName, LogHandle logger)
+	protected override void SolveTwo(string fileName)
 	{
 		var map = GetInput(fileName);
 		var guardStart = GetGuardPosition(map);
 
-		logger.Log("Parsed input data!");
+		Logger("Parsed input data!");
 
 		map.Select((line, y)
-				=> line.Select((c, x) => CheckObstacleLooping(map, new(x, y), guardStart))
+				=> line.Select((_, x) => CheckObstacleLooping(map, new(x, y), guardStart))
 					.Count(x => x)
 			)
 			.Sum()
-			.Log(logger, sum => $"Amount of possible loop-creating obstructions: {sum}");
+			.Log(Logger, sum => $"Amount of possible loop-creating obstructions: {sum}");
 	}
 
 	private char[][] GetInput(string fileName) =>
@@ -75,15 +75,15 @@ public class Solution : BaseSolution
 		var guardLog = new Dictionary<Point, List<Direction>>();
 		var direction = Direction.Up;
 		var guardPos = guardStart;
-		
+
 		while (true)
 		{
-			if(!guardLog.ContainsKey(guardPos))
+			if (!guardLog.ContainsKey(guardPos))
 				guardLog.Add(guardPos, []);
 
 			if (guardLog[guardPos].Contains(direction))
 				return true;
-			
+
 			guardLog[guardPos].Add(direction);
 			var next = guardPos.GetNeighbour(direction);
 			if (!map.IsInBounds(next))

@@ -5,17 +5,17 @@ namespace AdventOfCode24.Day_01;
 
 public class Solution : BaseSolution
 {
-	protected override void SolveOne(string fileName, LogHandle logger)
+	protected override void SolveOne(string fileName)
 	{
 		var (left, right) = GetInput(fileName);
 		left.Sort();
 		right.Sort();
 		left.Zip(right, MathHelper.AbsDiff)
 			.Sum()
-			.Log(logger, sum => $"Total Distance: {sum}");
+			.Log(Logger, sum => $"Total Distance: {sum}");
 	}
 
-	protected override void SolveTwo(string fileName, LogHandle logger)
+	protected override void SolveTwo(string fileName)
 	{
 		var (left, right) = GetInput(fileName);
 
@@ -25,9 +25,10 @@ public class Solution : BaseSolution
 			.GroupBy(x => x)
 			.ToDictionary(g => g.Key, g => g.Count());
 
-		distinct.Select(i => i * lookupTable.GetValueOrDefault(i, 0))
+		distinct
+			.Select(i => i * lookupTable.GetValueOrDefault(i, 0))
 			.Sum()
-			.Log(logger, sum => $"Total Similarity: {sum}");
+			.Log(Logger, sum => $"Total Similarity: {sum}");
 	}
 
 	private (List<long> left, List<long> right) GetInput(string file)

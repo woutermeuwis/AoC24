@@ -6,25 +6,25 @@ namespace AdventOfCode24.Day_08;
 
 public class Solution : BaseSolution
 {
-	protected override void SolveOne(string fileName, LogHandle logger)
+	protected override void SolveOne(string fileName)
 	{
-		var data = GetInput(fileName); 
+		var data = GetInput(fileName);
 		data.Antennae.Values
 			.SelectMany(GetAntiNodes)
-			.Where(p=> p.IsInBounds(data.Bounds))
+			.Where(p => p.IsInBounds(data.Bounds))
 			.Distinct()
 			.Count()
-			.Log(logger, count => $"Number of unique antinodes: {count}");
+			.Log(Logger, count => $"Number of unique antinodes: {count}");
 	}
 
-	protected override void SolveTwo(string fileName, LogHandle logger)
+	protected override void SolveTwo(string fileName)
 	{
 		var data = GetInput(fileName);
 		data.Antennae.Values
 			.SelectMany(points => GetHarmonicAntiNodes(points, data.Bounds))
 			.Distinct()
 			.Count()
-			.Log(logger, count => $"Number of unique harmonic antinodes: {count}");
+			.Log(Logger, count => $"Number of unique harmonic antinodes: {count}");
 	}
 
 	private Map GetInput(string fileName)
@@ -72,7 +72,7 @@ public class Solution : BaseSolution
 				foreach (var point2 in points[(i + 1)..])
 				{
 					var vector = point2 - point1;
-					
+
 					Point tmp = point1;
 					while (tmp.IsInBounds(bounds))
 					{
@@ -90,6 +90,6 @@ public class Solution : BaseSolution
 			}
 		}
 	}
-}
 
-public record Map(Bounds Bounds, Dictionary<char, List<Point>> Antennae);
+	private record Map(Bounds Bounds, Dictionary<char, List<Point>> Antennae);
+}

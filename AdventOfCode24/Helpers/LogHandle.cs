@@ -5,7 +5,6 @@ namespace AdventOfCode24.Helpers;
 public class LogHandle : IDisposable
 {
 	private readonly long _start;
-	private readonly List<string> _logs = [];
 
 	public LogHandle()
 	{
@@ -16,17 +15,17 @@ public class LogHandle : IDisposable
 	{
 		_start = Stopwatch.GetTimestamp();
 		if(initLog is {Length:>0})
-			_logs.Add(initLog);
+			Log(initLog);
 	}
 
 	public void Log(string message)
 	{
-		_logs.Add($"[{GetTimestamp()}] {message}");
+		Console.WriteLine($"[{GetTimestamp()}] {message}");
 	}
 
 	public void Dispose()
 	{
-		_logs.ForEach(Console.WriteLine);
+		Console.WriteLine("------------------------------------------------------");
 		Console.WriteLine();
 	}
 

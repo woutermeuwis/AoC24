@@ -61,4 +61,34 @@ public static class JaggedArrayExtensions
 			}
 		}
 	}
+
+	public static bool All<T>(this T[][] arr, Func<T, bool> predicate)
+		=> arr.All(line => line.All(predicate));
+
+	public static Point FirstIndexOf<T>(this T[][] arr, T checkValue)
+	{
+		for (var y = 0; y < arr.Length; y++)
+		{
+			for (var x = 0; x < arr[y].Length; x++)
+			{
+				if (arr.Check(x, y, checkValue))
+					return new(x, y);
+			}
+		}
+
+		throw new Exception("Element not found");
+	}
+
+	public static Point FirstIndexOf<T>(this T[][] arr, Func<T, bool> predicate)
+	{
+		for (var y = 0; y < arr.Length; y++)
+		{
+			for (var x = 0; x < arr[y].Length; x++)
+			{
+				if (predicate(arr.Get(x, y)))
+					return new(x, y);
+			}
+		}
+		throw new Exception("No matches found in array");
+	}
 }

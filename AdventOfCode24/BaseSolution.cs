@@ -42,6 +42,9 @@ public abstract class BaseSolution
 	protected int GetDay()
 		=> GetType().Namespace?.Split('.')[^1].Split("_")[^1].ToInt() ?? throw new InvalidOperationException();
 
+	protected bool IsExample(string fileName) 
+		=> fileName.Contains("example.txt");
+
 	protected abstract void SolveOne(string fileName);
 	protected abstract void SolveTwo(string fileName);
 }

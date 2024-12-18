@@ -4,25 +4,25 @@ namespace AdventOfCode24.Extensions;
 
 public static class JaggedArrayExtensions
 {
-	public static bool IsInBounds<T>(this T[][] arr, int x, int y)
+	public static bool IsInBounds<T>(this T[][] arr, long x, long y)
 		=> x >= 0 && y >= 0 && y < arr.Length && x < arr[y].Length;
 
 	public static bool IsInBounds<T>(this T[][] arr, Point p)
 		=> IsInBounds(arr, p.X, p.Y);
 
-	public static T Get<T>(this T[][] arr, int x, int y)
+	public static T Get<T>(this T[][] arr, long x, long y)
 		=> arr[y][x];
 
 	public static T Get<T>(this T[][] arr, Point p)
 		=> arr.Get(p.X, p.Y);
 
-	public static void Set<T>(this T[][] arr, int x, int y, T value)
+	public static void Set<T>(this T[][] arr, long x, long y, T value)
 		=> arr[y][x] = value;
 
 	public static void Set<T>(this T[][] arr, Point p, T value)
 		=> arr.Set(p.X, p.Y, value);
 
-	public static bool Check<T>(this T[][] arr, int x, int y, T value)
+	public static bool Check<T>(this T[][] arr, long x, long y, T value)
 		=> arr.IsInBounds(x, y)
 		   && EqualityComparer<T>.Default.Equals(Get(arr, x, y), value);
 
@@ -76,7 +76,7 @@ public static class JaggedArrayExtensions
 			}
 		}
 
-		throw new Exception("Element not found");
+		throw new("Element not found");
 	}
 
 	public static Point FirstIndexOf<T>(this T[][] arr, Func<T, bool> predicate)
@@ -89,6 +89,6 @@ public static class JaggedArrayExtensions
 					return new(x, y);
 			}
 		}
-		throw new Exception("No matches found in array");
+		throw new("No matches found in array");
 	}
 }

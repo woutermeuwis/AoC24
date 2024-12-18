@@ -15,4 +15,7 @@ public static class IEnumerableExtensions
 
 	public static IEnumerable<T> WhereNot<T>(this IEnumerable<T> enumerable, Func<T, bool> predicate)
 		=> enumerable.Where(x => !predicate(x));
+
+	public static bool None<T>(this IEnumerable<T> enumerable, Func<T, bool> predicate)
+		=> !enumerable.Any(predicate);
 }

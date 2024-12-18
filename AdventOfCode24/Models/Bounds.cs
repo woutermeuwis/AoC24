@@ -1,27 +1,47 @@
+using AdventOfCode24.Extensions;
+
 namespace AdventOfCode24.Models;
 
-public record Bounds(int X, int Y, int Width, int Height)
+public record Bounds(long X, long Y, long Width, long Height)
 {
-	public int Left => Width > 0
+	public long Left => Width > 0
 		? X
-		: X + Width;
+		: X + Width - 1;
 
-	public int Right => Width > 0
-		? X + Width
+	public long Right => Width > 0
+		? X + Width - 1
 		: X;
 
-	public int Top => Height > 0
+	public long Top => Height > 0
 		? Y
-		: Y + Height;
+		: Y + Height - 1;
 
-	public int Bottom => Height > 0
-		? Y + Height
+	public long Bottom => Height > 0
+		? Y + Height - 1
 		: Y;
 
-	public static Bounds FromJaggedArray<T>(T[][] array) 
-		=> new(0, 0, array[0].Length - 1, array.Length - 1);
+	public static Bounds FromJaggedArray<T>(T[][] array)
+		=> new(0, 0, array[0].Length, array.Length);
 
-	public Bounds(int width, int height) : this(0, 0, width, height)
+	public T[][] ToJaggedArray<T>(T value)
+	{
+		var arr = new T[Height][];
+		for (var y = 0; y < Height; y++)
+		{
+			arr[y] = new T[Width];
+			for (var x = 0; x < Width; x++)
+				arr.Set(x, y, value);
+		}
+
+		return arr;
+	}
+
+
+	public Bounds(long width, long height) : this(0, 0, width, height)
+	{
+	}
+
+	public Bounds(long side) : this(side, side)
 	{
 	}
 }

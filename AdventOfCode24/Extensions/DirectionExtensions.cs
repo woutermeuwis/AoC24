@@ -16,9 +16,18 @@ public static class DirectionExtensions
 		if (degrees % 45 != 0)
 			throw new ArgumentException(nameof(degrees));
 
-		var newValue = (int)direction + degrees;
-		while (newValue < 0)
-			newValue += 360;
-		return (Direction)(newValue % 360);
+		return (Direction)NormalizeDegrees((int)direction + degrees);
+	}
+
+	public static int GetPositiveDifferenceTo(this Direction dir1, Direction dir2)
+		=> NormalizeDegrees(dir1 - dir2);
+
+	public static int GetSmallesDifferenceTo(this Direction dir1, Direction dir2)
+		=> NormalizeDegrees(dir1 - dir2) % 180;
+
+	private static int NormalizeDegrees(int degrees)
+	{
+		while (degrees < 0) degrees += 360;
+		return degrees % 360;
 	}
 }

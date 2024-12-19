@@ -4,7 +4,7 @@ using AdventOfCode24.Helpers;
 
 var config = new
 {
-	Day = 16,
+	Day = 19,
 	Days = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 },
 	RunMultiple = false,
 	RunExamples = true,
